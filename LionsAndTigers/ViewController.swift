@@ -69,15 +69,15 @@ class ViewController: UIViewController {
         fourthTiger.age = 5
         fourthTiger.image = UIImage(named:"SiberianTiger.jpg")
         
-        tigers.append(firstTiger)
-        tigers += [secondTiger, thirdTiger, fourthTiger]
+        self.tigers.append(firstTiger)
+        self.tigers += [secondTiger, thirdTiger, fourthTiger]
     }
 
     func setDataFromTiger(tiger:Tiger) {
-        ageLabel.text = "\(tiger.age)"
-        nameLabel.text = tiger.name
-        breedLabel.text = tiger.breed
-        myImageView.image = tiger.image
+        self.ageLabel.text = "\(tiger.age)"
+        self.nameLabel.text = tiger.name
+        self.breedLabel.text = tiger.breed
+        self.myImageView.image = tiger.image
     }
     
     func generateRandomNumber( max: Int = 10 )->Int {
