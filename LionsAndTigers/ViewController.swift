@@ -28,6 +28,22 @@ class ViewController: UIViewController {
         self.lastShownTiger = 0
     }
     
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    @IBAction func nextBarButtonItemPressed(sender: UIBarButtonItem) {
+        UIView.transitionWithView(self.view, duration: 1,
+            options: UIViewAnimationOptions.TransitionCurlUp,
+            animations: {
+                let tiger = self.getRandomTiger()
+                self.setDataFromTiger(tiger)
+            }, completion: {
+                (finished:Bool) -> () in
+        })
+    }
+    
     func initTigersArray() {
         var firstTiger = Tiger()
         firstTiger.name = "Tigger"
@@ -64,29 +80,19 @@ class ViewController: UIViewController {
         myImageView.image = tiger.image
     }
     
-    func _generateRandomNumber( max: Int = 10 )->Int {
+    func generateRandomNumber( max: Int = 10 )->Int {
         let randomNumber = Int(arc4random_uniform(UInt32(max)))
         return randomNumber
     }
     
     func getRandomTiger() -> Tiger {
-        var tigerIndex = _generateRandomNumber(max: tigers.count)
+        var tigerIndex = generateRandomNumber(max: tigers.count)
         while tigerIndex == self.lastShownTiger {
-            tigerIndex = _generateRandomNumber(max: tigers.count)
+            tigerIndex = generateRandomNumber(max: tigers.count)
         }
         self.lastShownTiger = tigerIndex
         return tigers[tigerIndex]
 
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-    @IBAction func nextBarButtonItemPressed(sender: UIBarButtonItem) {
-        let tiger = self.getRandomTiger()
-        self.setDataFromTiger(tiger)
     }
 
 }
