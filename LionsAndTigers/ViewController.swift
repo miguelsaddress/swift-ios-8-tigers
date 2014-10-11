@@ -18,6 +18,7 @@ class ViewController: UIViewController {
     //array to hold the tigers
     //var tigers: Array<Tiger> = []
     var tigers:[Tiger] = []
+    //holds the array index that was last displayed
     var lastShownTiger = -1
     
     override func viewDidLoad() {
@@ -69,6 +70,7 @@ class ViewController: UIViewController {
         fourthTiger.age = 5
         fourthTiger.image = UIImage(named:"SiberianTiger.jpg")
         
+        //This is to practise different ways to append elements to an array
         self.tigers.append(firstTiger)
         self.tigers += [secondTiger, thirdTiger, fourthTiger]
     }
