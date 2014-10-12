@@ -14,6 +14,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var ageLabel: UILabel!
     @IBOutlet weak var breedLabel: UILabel!
+    @IBOutlet weak var randomFactLabel: UILabel!
     
     //array to hold the tigers
     //var tigers: Array<Tiger> = []
@@ -25,8 +26,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         self.initTigersArray()
-        self.setDataFromTiger(getRandomTiger())
-        self.lastShownTiger = 0
+        self.setDataFromTiger(self.getRandomTiger())
     }
     
     override func didReceiveMemoryWarning() {
@@ -45,7 +45,7 @@ class ViewController: UIViewController {
         })
     }
     
-    func initTigersArray() {
+    private  func initTigersArray() {
         var firstTiger = Tiger()
         firstTiger.name = "Tigger"
         firstTiger.breed = "Bengal"
@@ -75,23 +75,28 @@ class ViewController: UIViewController {
         self.tigers += [secondTiger, thirdTiger, fourthTiger]
     }
 
-    func setDataFromTiger(tiger:Tiger) {
-        self.ageLabel.text = "\(tiger.age)"
-        self.nameLabel.text = tiger.name
-        self.breedLabel.text = tiger.breed
+    private func setDataFromTiger(tiger:Tiger) {
+        self.ageLabel.text = "Age: \(tiger.age)"
+        self.nameLabel.text = "Name: \(tiger.name)"
+        self.breedLabel.text = "Breed: \(tiger.breed)"
         self.myImageView.image = tiger.image
+        self.randomFactLabel.text = tiger.randomFact()
+        tiger.chuff(times: 2)
     }
     
-    func generateRandomNumber( max: Int = 10 )->Int {
+    private func generateRandomNumber( max: Int = 10 )->Int {
         let randomNumber = Int(arc4random_uniform(UInt32(max)))
         return randomNumber
     }
     
-    func getRandomTiger() -> Tiger {
-        var tigerIndex = generateRandomNumber(max: tigers.count)
-        while tigerIndex == self.lastShownTiger {
+    private func getRandomTiger() -> Tiger {
+        var tigerIndex:Int
+        do {
             tigerIndex = generateRandomNumber(max: tigers.count)
-        }
+            println("last shown index  = \(self.lastShownTiger)")
+            println("Tiger index selected = \(tigerIndex)")
+        } while tigerIndex == self.lastShownTiger
+
         self.lastShownTiger = tigerIndex
         return tigers[tigerIndex]
 
